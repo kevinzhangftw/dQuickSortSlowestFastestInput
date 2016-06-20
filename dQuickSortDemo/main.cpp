@@ -9,6 +9,7 @@
 #include <fstream>
 #include "dquick.hpp"
 #include <chrono>
+#include <math.h>
 using namespace std::chrono;
 
 using namespace std;
@@ -19,6 +20,7 @@ using namespace std;
 int A[ARR_LEN];
 
 void createArraytoFile(int* A, int arrayLength);
+void swappingPivots(int* A, int arrayLength);
 
 int main(int argc, const char * argv[]) {
     //Worst case
@@ -29,9 +31,9 @@ int main(int argc, const char * argv[]) {
     //Best case
         for (int i =0; i<ARR_LEN ; i++) {
             A[i] = i+1;
-            //pivot is as close to center as possible
-            
         }
+    //pivot is as close to center as possible
+    swappingPivots(A, ARR_LEN);
     
     //generate array to file
     createArraytoFile(A, ARR_LEN);
@@ -60,12 +62,29 @@ int main(int argc, const char * argv[]) {
 }
 
 void createArraytoFile(int* A, int arrayLength){
-    //take the input array
-    //output to text file
-    fstream outfile("qs-worst.in", fstream::out);
+//    //output worst
+//    fstream outfile("qs-worst.in", fstream::out);
+//    for (int i =0; i<arrayLength; ++i) {
+//        outfile << A[i] << endl;
+//    }
+//    
+//    outfile.close();
+    
+    //output best
+    fstream outfile("qs-best.in", fstream::out);
     for (int i =0; i<arrayLength; ++i) {
         outfile << A[i] << endl;
     }
     
     outfile.close();
+}
+
+void swappingPivots(int* A, int arrayLength){
+    if (arrayLength < 2) return;
+    //swap a[0] and a[arraylength/2]
+    int tmp = A[0]; A[0] = A[int(floor(arrayLength/2))] ; A[int(floor(arrayLength/2))] = tmp;
+    //call swappingpivots on left subarray
+    swappingPivots(A, arrayLength/2);
+    //call swappingpivots on right subarray
+    swappingPivots(A, (arrayLength/2)+1);
 }
