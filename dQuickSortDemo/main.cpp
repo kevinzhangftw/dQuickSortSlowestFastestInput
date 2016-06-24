@@ -15,8 +15,9 @@ using namespace std::chrono;
 using namespace std;
 
 // you'll have to adjust this number as required
-//#define ARR_LEN 50000
-#define ARR_LEN 10000000
+#define ARR_LEN 100000
+//#define ARR_LEN 10000000
+//#define ARR_LEN 7
 int A[ARR_LEN];
 
 void createArraytoFile(int* A, int arrayLength);
@@ -32,8 +33,19 @@ int main(int argc, const char * argv[]) {
         for (int i =0; i<ARR_LEN ; i++) {
             A[i] = i+1;
         }
+//    cout << "BEFORE SWAPPING" << endl;
+//    //print out the array
+//    for (int i = 0;  i<ARR_LEN; ++i) {
+//        cout << A[i];
+//    }
     //pivot is as close to center as possible
     swappingPivots(A, ARR_LEN);
+    
+//    cout << "AFTER SWAPPING" << endl;
+//    //print out the array
+//    for (int i = 0;  i<ARR_LEN; ++i) {
+//        cout << A[i];
+//    }
     
     //generate array to file
     createArraytoFile(A, ARR_LEN);
@@ -86,5 +98,5 @@ void swappingPivots(int* A, int arrayLength){
     //call swappingpivots on left subarray
     swappingPivots(A, arrayLength/2);
     //call swappingpivots on right subarray
-    swappingPivots(A, (arrayLength/2)+1);
+    swappingPivots(A, arrayLength- int(floor(arrayLength/2)));
 }
