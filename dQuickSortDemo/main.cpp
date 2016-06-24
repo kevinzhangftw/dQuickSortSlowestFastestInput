@@ -15,8 +15,8 @@ using namespace std::chrono;
 using namespace std;
 
 // you'll have to adjust this number as required
-#define ARR_LEN 100000
-//#define ARR_LEN 10000000
+#define ARR_LEN 1000000
+//#define ARR_LEN 50000
 //#define ARR_LEN 7
 int A[ARR_LEN];
 
@@ -24,15 +24,16 @@ void createArraytoFile(int* A, int arrayLength);
 void swappingPivots(int* A, int arrayLength);
 
 int main(int argc, const char * argv[]) {
-    //Worst case
+//    Worst case
 //    for (int i =0; i<ARR_LEN ; i++) {
-//        A[i] = 0;
+//        A[i] = 1;
 //    }
-//
+
     //Best case
         for (int i =0; i<ARR_LEN ; i++) {
-            A[i] = i+1;
+            A[i] = rand()%(1000000-1 + 1) + 1;;
         }
+    
 //    cout << "BEFORE SWAPPING" << endl;
 //    //print out the array
 //    for (int i = 0;  i<ARR_LEN; ++i) {
@@ -94,9 +95,9 @@ void createArraytoFile(int* A, int arrayLength){
 void swappingPivots(int* A, int arrayLength){
     if (arrayLength < 2) return;
     //swap a[0] and a[arraylength/2]
-    int tmp = A[0]; A[0] = A[int(floor(arrayLength/2))] ; A[int(floor(arrayLength/2))] = tmp;
+    int tmp=A[0]; A[0]=A[arrayLength/2] ; A[arrayLength/2]=tmp;
     //call swappingpivots on left subarray
     swappingPivots(A, arrayLength/2);
     //call swappingpivots on right subarray
-    swappingPivots(A, arrayLength- int(floor(arrayLength/2)));
+    swappingPivots(A+((arrayLength/2)+1), arrayLength-((arrayLength/2)+1));
 }
